@@ -5,7 +5,7 @@
  * 2: WHERE 컬럼명 | 함수식 비교연산자 비교값
  * 3: GROUP BY 그룹을 묶을 컬럼명
  * 4: HAVING 그룹함수식 비교연산자 비교값
- * 6: ORDER BY 컬럼명 | 별칭 | 컬럼순번 정력방식 [ NULLS FIRST / LAST]  
+ * 6: ORDER BY 컬럼명 | 별칭 | 컬럼순번 정렬방식 [ NULLS FIRST / LAST]  
  */
 
 -- GROUP BY절 : 값은 값들이 여러개 기록된 컬럼을 가지고 같은 값들을 하나의 그룹으로 묶음

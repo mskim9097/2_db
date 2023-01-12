@@ -380,3 +380,9 @@ WHERE BONUS IS NOT NULL; -- 9
 SELECT COUNT(*)
 FROM EMPLOYEE
 WHERE SUBSTR(EMP_NO, 8, 1) = '1';
+
+-- UPPER 함수의 역할
+SELECT EMP_NO, UPPER(EMAIL)
+FROM EMPLOYEE;
+
+-- 조회한 컬럼이 영문자일 경우 대문자로 바꿔주는 함수

@@ -214,7 +214,7 @@ ORDER BY STUDENT_SSN DESC;
 -- 주소를 이름의 오름차순으로 화면에 출력하시오.
 -- 단, 출력헤더에는 "학생이름", "학번", "거주지 주소" 가 출력되도록 한다.
 
-SELECT STUDENT_NAME "학생이름", STUDENT_NO "학번", STUDENT_ADDRESS "거주지 주소", ENTRANCE_DATE
+SELECT STUDENT_NAME "학생이름", STUDENT_NO "학번", STUDENT_ADDRESS "거주지 주소"
 FROM TB_STUDENT
 WHERE (STUDENT_ADDRESS LIKE '%강원%' OR STUDENT_ADDRESS LIKE '%경기%')
 AND ENTRANCE_DATE < '2000-01-01'
