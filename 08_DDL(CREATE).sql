@@ -407,7 +407,7 @@ COMMIT;
 SELECT * FROM USER_GRADE;
 SELECT * FROM USER_USED_FK;
 
--- 1) ON DELETE RETRICTED(삭제 제한)로 기본 지정되어 있음
+-- 1) ON DELETE RESTRICTED(삭제 제한)로 기본 지정되어 있음
 -- FOREIGN KEY로 지정된 컬럼에서 사용되고 있는 값일 경우
 -- 제공하는 컬럼의 값은 삭제하지 못함
 DELETE FROM USER_GRADE WHERE GRADE_CODE = 30;

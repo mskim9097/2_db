@@ -83,7 +83,7 @@ ORDER BY DEPT_CODE, JOB_CODE DESC;
 -- GROUP BY 사용시 주의사항
 --> SELECT문에 GROUP BY절을 사용할 경우
 --> SELECT절에 명시한 조회하려는 컬럼 중
--- 그룹함수가 적용되지 않음 컬럼을
+-- 그룹함수가 적용되지 않은 컬럼을
 -- 모두 GROUP BY절에 작성해야함.
 
 
