@@ -99,8 +99,8 @@ DROP TABLE EMP;
 --문제해결시나리오
 --사용자계정에서 test라는 이름과 비밀번호가 1234인 계정을 생성하기위해 
 --create했는데 실행X 이유와 해결법은?
--- 이유: 계정생성 권한은 최고관리자인 SYSTEM계정밖에없기때문에 SYSTEM계정으로 접속해서 실행해야함  
--- 해결: sys as sysdba or system계정으로 접속해서 실행후
+-- 이유: 계정생성 권한은 최고관리자인 SYSTEM계정밖에없음
+-- 해결: sys as sysdba or system계정으로 접속후
 --		CREATE USER test IDENTIFIED BY 1234;
 --		GRANT RESOURCE, CONNECT TO test <== 권한 부여
 
@@ -117,6 +117,3 @@ AND SALARY >= 2700000;
 -- EMPLOYEE 테이블에서 보너스가 있는/없는 사원의 이름, 보너스 조회
 SELECT EMP_NAME, BONUS FROM EMPLOYEE WHERE BONUS IS NOT NULL;
 SELECT EMP_NAME, BONUS FROM EMPLOYEE WHERE BONUS IS NULL;
-
-
-
