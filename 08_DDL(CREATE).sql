@@ -529,3 +529,64 @@ SELECT * FROM USER_USED_FK3;
 
 -----------------------------------------------------------------------------
 
+
+-- 5. CHECK 제약 조건 : 컬럼에 기록되는 값에 조건을 설정 할 수 있음
+-- CHECK (컬럼명 비교연산자 비교값)
+-- 주의 : 비교값은 리터럴만 사용할 수 있음, 변하는 값 or 함수 사용 못함
+
+
+CREATE TABLE USER_USED_CHECK(
+	USER_NO NUMBER PRIMARY KEY,
+	USER_ID VARCHAR2(20) UNIQUE,
+	USER_PWD VARCHAR2(30) NOT NULL,
+	USER_NAME VARCHAR2(30),
+	GENDER VARCHAR2(10) CONSTRAINT GENDER_CHECK CHECK(GENDER IN ('남', '여')),
+	PHONE VARCHAR2(30),
+	EMAIL VARCHAR2(50)
+);
+
+INSERT INTO USER_USED_CHECK
+VALUES(1, 'USER01', 'PASS01', '홍길동', '남', '010-1234-1234', 'HOND@TEST.COM');
+
+
+SELECT * FROM USER_USED_CHECK;
+
+INSERT INTO USER_USED_CHECK
+VALUES(2, 'USER01', 'PASS01', '홍길동', '남자', '010-1234-1234', 'HOND@TEST.COM');
+
+-- ORA-02290: 체크 제약조건(KH.GENDER_CHECK)이 위배되었습니다
+-- CHECK 제약조건으로 GENDER컬럼을 설정했기 때문에, 남 또는 여 만 기록 가능한데
+-- 남자라는 조건 이외의 값이 들어와 에러 발생
+
+
+-- [연습 문제]
+-- 회원가입용 테이블 생성(USER_TEST)
+-- 컬럼명 : USER_NO(회원번호) - 기본키(PK_USER_TEST), 
+--         USER_ID(회원아이디) - 중복금지(UK_USER_ID),
+--         USER_PWD(회원비밀번호) - NULL값 허용안함(NN_USER_PWD),
+--         PNO(주민등록번호) - 중복금지(UK_PNO), NULL 허용안함(NN_PNO),
+--         GENDER(성별) - '남' 혹은 '여'로 입력(CK_GENDER),
+--         PHONE(연락처),
+--         ADDRESS(주소),
+--         STATUS(탈퇴여부) - NOT NULL(NN_STATUS), 'Y' 혹은 'N'으로 입력(CK_STATUS)
+-- 각 컬럼의 제약조건에 이름 부여할 것
+-- 5명 이상 INSERT할 것
+
+CREATE TABLE USER_TEST(
+	USER_NO NUMBER CONSTRAINT PK_USER_TEST PRIMARY KEY,
+	USER_ID VARCHAR2(20) CONSTRAINT UK_USER_ID UNIQUE,
+	USER_PWD VARCHAR2(20) CONSTRAINT NN_USER_PWD NOT NULL,
+	PNO VARCHAR2(20) CONSTRAINT UK_PNO NOT NULL,
+	GENDER VARCHAR2(3) CONSTRAINT CK_GENDER CHECK(GENDER IN ('남', '여')),
+	PHONE VARCHAR2(20),
+	ADDRESS VARCHAR2(100),
+	STATUS VARCHAR(3) DEFAULT 'N' CONSTRAINT NN_STATUS NOT NULL,
+	CONSTRAINT UK_PNO UNIQUE(PNO),
+	CONSTRAINT CK_STATUS CHECK(STATUS IN ('Y', 'N'))
+);
+
+
+
+-----------------------------------------------------------------
+-- 6. SUBQUERY 이용한 테이블 생성법
+-- 컬럼명, 데이터 타입, 값이 복사되고, 제약조건은 NOT NULL만 복사됨
