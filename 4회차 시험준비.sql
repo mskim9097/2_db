@@ -7,17 +7,24 @@
 -- CHAR(100) = 100바이트 고정길이문자열 (영어 100자) (VARCHAR2 = 가변길이문자열)
 -- TABLE이란? 데이터를 표형태로 표현한거
 -- SQL(Structured Query Language) 구조적 질의 언어 - DQL, DML, DDL, DCL, TCL
+
 SELECT TO_CHAR(TO_DATE('210505', 'YYMMDD'), 'YYYY"년" MM"월" DD"일"') FROM DUAL; -- 문자열데이터 날짜로 바꾸는 셀렉트구문작성
+
 날짜변환문제 여러개있음
 SELECT SUBSTR(EMAIL, 1, INSTR(EMAIL, '@') -1 ) FROM EMPLOYEE; -- EMAIL의 1번째 부터 INSTR - 1(@전)까지의 문자 출력
+
 -- UPPER	: 조회한 컬럼이 영문자일 경우 대문자로 바꿔주는 함수
 SELECT UPPER(EMAIL) FROM EMPLOYEE;
+
 -- INITCAP  : 조회한 컬럼이 영문자일 경우 앞글자를 대문자로 변환해 주는 함수
 SELECT INITCAP(EMAIL) FROM EMPLOYEE;
+
 -- TRIM 함수 : 조회한 컬럼 양 끝에 띄어쓰기나 빈칸이 있을 경우, 이를 제거해주는 역할을 한다.
 SELECT TRIM('     HELLO     ') FROM DUAL; -- 주어진 컬럼이나 문자열의 앞, 뒤, 양쪽에 있는 지정된 문자를 제거
 SELECT TRIM(BOTH '#' FROM '####안녕####') FROM DUAL; -- LEADING은 앞, TRAILING은 뒤 BOTH는 둘다 제거
+
 MINUS? 차집합 셀렉결과랑 다음셀렉결과의 겹치는 결과를 제외한 나머지
+
 -- DECODE / CASE END 구문
 -- 직원의 급여를 인상하고자 한다.
 -- 직급 코드가 J7인 직원은 20%, J6인 직원은 15%, J5인 직원은 10%, 그 외 직급은 5% 인상
@@ -25,10 +32,13 @@ MINUS? 차집합 셀렉결과랑 다음셀렉결과의 겹치는 결과를 제�
 SELECT EMP_NAME "이름", JOB_CODE "직급코드", SALARY "원래급여", DECODE(JOB_CODE, 'J7', '20%', 'J6', '15%', 'J5', '10%', '5%') "인상률",
 DECODE(JOB_CODE, 'J7', SALARY * '1.2', 'J6', SALARY * '1.15', 'J5', SALARY * '1.1', SALARY * '1.05') "인상된 급여"
 FROM EMPLOYEE;
+
 --ROLL UP 함수: 그룹별로 중간 집계 처리를 하는 함수
 SELECT DEPT_CODE, JOB_CODE, SUM(SALARY)
 FROM EMPLOYEE
-GROUP BY ROLLUP(DEPT_CODE, JOB_CODE);
+GROUP BY ROLLUP(DEPT_CODE, JOB_CODE)
+ORDER BY 1;
+
 -- CONCAT 함수 : 여러 문자열을 하나로 합쳐주는 역할
 SELECT EMP_ID || ', ' || EMP_NAME || ', ' || EMP_NO FROM EMPLOYEE;
 -- 위 SELECT 구문을 CONCAT 을 이용하여 변경 가능
@@ -53,6 +63,7 @@ ORDER BY DEPT_CODE;
 SELECT RANK() OVER (ORDER BY SALARY DESC) "순위",
 	EMP_NAME, SALARY
 FROM EMPLOYEE;
+
 -- DENSE_RANK() OVER : 동일한 순위 이후의 등수를 이후의 순위로 계산
 SELECT DENSE_RANK() OVER (ORDER BY SALARY DESC) "순위",
 	EMP_NAME, SALARY
@@ -80,5 +91,3 @@ INTERSECT : 선행 SELECT 결과에서 다음 SELECT 결과와 겹치는 부분�
 
 
 MINUS: 선행 SELECT 결과에서 다음 SELECT 결과와 겹치는 부분을 제외한 나머지 부분 추출(차집합)
-
-
