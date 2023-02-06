@@ -14,7 +14,7 @@
 	  [작성법]
 	  
   CREATE SEQUENCE 시퀀스이름
-  [STRAT WITH 숫자] -- 처음 발생시킬 시작값 지정, 생략하면 자동 1이 기본
+  [START WITH 숫자] -- 처음 발생시킬 시작값 지정, 생략하면 자동 1이 기본
   [INCREMENT BY 숫자] -- 다음 값에 대한 증가치, 생략하면 자동 1이 기본
   [MAXVALUE 숫자 | NOMAXVALUE] -- 발생시킬 최대값 지정 (10의 27승 -1)
   [MINVALUE 숫자 | NOMINVALUE] -- 최소값 지정 (-10의 26승)
@@ -47,7 +47,7 @@ CREATE SEQUENCE SEQ_TEST;
 
 -- * CURRVAL 주의사항 *
 --> CURRVAL는 마지막 NEXTVAL 호출 값을 다시 보여주는 기능
---> NEXTVAL를 먼저 호출해야 CURRVA 호출이 가능하다!
+--> NEXTVAL를 먼저 호출해야 CURRVAL 호출이 가능하다!
 
 
 -- 생성 되자마자 바로 현재 값 확인
