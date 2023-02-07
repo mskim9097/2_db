@@ -6,7 +6,6 @@
 -- COMMIT : 트랜잭션에 임시 저장된 데이터를 DB에 반영
 -- ROLLBACK : 트랜잭션에 임시저장된 데이터 삭제 후 직전 커밋 OR 지정된 SAVEPOINT 지점으로 보냄
 
-
 -- SUBQUERY : 하나의 SQL문안에 포함된 또다른 SQL문(보조역할)
 
 -- 1. 단일행 서브쿼리(서브쿼리 조회결과 1개) : 앞에 비교연산자 사용
@@ -17,7 +16,7 @@
 -- EXIST / NOT EXISTS
 
 -- 3. 다중열 서브쿼리(나열된 컬럼수가 N개일때)
--- WHERE절에 작성된 컬럼 순서에 맞게 서브쿼리의 조회된 컬럼과 비교하여 일치하는 행만 조회
+-- WHERE절에 작성된 컬럼 순서에 맞게 서브쿼리에 조회된 컬럼과 비교하여 일치하는 행만 조회
 -- (컬럼 순서가 중요!) (WHERE (컬럼1, 컬럼2) = (SELECT 컬럼1, 컬럼2 FROM ~~~~)
 
 -- 4. 다중행 다중열 서브쿼리 (서브쿼리 조회결과 행,열 수가 여러개일때)
@@ -57,7 +56,7 @@
 -- ON DELETE CASCADE = 부모키 삭제하면 자식키도 삭제되는 옵션
 -- ON DELETE SET NULL = 부모키 삭제시 자식키를 NULL로 변경하는 옵션
 -- CHECK : 범위나 조건을 지정하여 그안에 값만 허용하는 제약조건(비교값은 리터럴만사용가능)
--- DEFAULT : 데이터 삽입시 생략할때 입력되는 기본값
+-- DEFAULT : 데이터 삽입시 컬럼에 값을 입력하지 않았을때 자동으로 입력되는 기본값
 -- ALTER TABLE 테이블명 ADD (컬럼명 데이터타입 [DEFAULT '값'];
 -- ALTER TABLE 테이블명 MODIFY 컬럼명 DEFAULT '값';
 
@@ -73,12 +72,15 @@
 
 -- 문제해결 시나리오--
 
+-- 크레이트한 테이블에 알터이용해서 프라이머리키 삽입하는방법?
 -- ALTER TABLE 테이블명 ADD [CONSTRAINT 제약조건명] PRIMARY KEY(컬럼명);
-크레이트 테이블한 테이블에 알터이용해서 프라이머리키 삽입하는방법?
 -- 사용자계정을 만든다음에 접속하려고했는데 에러발생 접속하려면?
 -- ORA-01045: 사용자 계정은 CREATE SESSION 권한을 가지고있지 않음; 로그온이 거절되었습니다
 -- 원인 : 사용자계정을 만들 당시 접속 권한을 가지고 있지않음 -> 시스템계정에서 사용자 계정에 권한부여
 -- GRANT CREATE SESSION TO 아이디;
 어떤테이블에 어떤코드순으로 오름차순하려고했는데 오류발생
 
-SELECT EMP_ID, EMP_NO FROM EMPLOYEE ORDER BY 2, 1
+SELECT DEPT_CODE, JOB_CODE, AVG(SALARY) FROM EMPLOYEE GROUP BY DEPT_CODE, JOB_CODE ORDER BY 2, 3 DESC , 1;
+
+ALTER TABLE TB_TEST ADD(TEST VARCHAR2(3));
+ALTER TABLE TB_TEST DROP(TEST);
